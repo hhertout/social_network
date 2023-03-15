@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "dev-front": "cd client",
+    "dev-back": "cd server && npm start"
+  }
+}
