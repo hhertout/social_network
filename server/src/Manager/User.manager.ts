@@ -1,6 +1,7 @@
-import {ILogin, IUser, IUserCreate, IUserId} from "../Types/User";
+import {IUser, IUserCreate, IUserId} from "../Types/User";
 import {User} from "../Schema/User.schema";
 import bcrypt from "bcrypt";
+import {ILogin} from "../Types/Auth";
 
 export default class UserManager {
     async signup({email, username, password, firstname, lastname}: IUserCreate): Promise<IUser> {

@@ -24,8 +24,3 @@ export interface IUserCreate {
 export interface IUserId {
     id: string
 }
-
-export interface ILogin {
-    email: string
-    password: string
-}
