@@ -17,8 +17,12 @@ router
                 httpOnly: true,
                 secure: true,
             })
+            //hide the password
+            user.password = ""
+
             return res.status(200).json({
                 success: true,
+                user: user
             })
         } catch (err: any) {
             return res.status(500).json({
@@ -30,7 +34,11 @@ router
     .post("/signup", async (req: Request, res: Response) => {
         const {email, username, password, firstname, lastname}: IUserCreate = req.body
         const newUser = await new UserManager().signup({
-            email, username, password, firstname, lastname
+            email,
+            username,
+            password,
+            firstname,
+            lastname
         })
         return res.status(201).json({
             success: true,

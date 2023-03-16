@@ -2,6 +2,7 @@ import {IUser, IUserCreate, IUserId} from "../Types/User";
 import {User} from "../Schema/User.schema";
 import bcrypt from "bcrypt";
 import {ILogin} from "../Types/Auth";
+import {Post} from "../Schema/Post.schema";
 
 export default class UserManager {
     async signup({email, username, password, firstname, lastname}: IUserCreate): Promise<IUser> {
@@ -40,5 +41,21 @@ export default class UserManager {
 
     async getById({id}: IUserId): Promise<IUser | Error | null> {
         return User.findOne({_id: id}, {password: 0})
+    }
+
+    async createPost({content, user}: { content: string, user: string }) {
+        console.log(user)
+        const newPost = new Post({content})
+        try {
+            await newPost.save()
+        } catch (err: any) {
+            throw new Error(err.message)
+        }
+
+        return User.findByIdAndUpdate(
+            {_id: user},
+            {$push: {posts: newPost}},
+            {returnDocument: "after"}
+        )
     }
 }

@@ -1,35 +1,32 @@
 import express, {Request, Response} from "express";
-import {IPostCreate, IPostUpdate} from "../Types/Post";
+import {IPostCreate} from "../Types/Post";
 import PostManager from "../Manager/Post.manager";
+import {authMiddleware} from "../Middleware/Auth.middleware";
+import {AuthRequest, IToken} from "../Types/Auth";
+import UserManager from "../Manager/User.manager";
 
 const router = express.Router()
 
 router
-    .post("/create", async (req: Request, res: Response) => {
-        // Create post
+    .post("/create", authMiddleware, async (req: AuthRequest, res: Response) => {
+        const token: IToken = req.user
         const {content}: IPostCreate = req.body
+
         try {
-            const newPost = await new PostManager().create({content})
+            const user = token.user
+            const post = await new UserManager().createPost({content, user})
             return res.status(200).json({
                 success: true,
-                post: newPost
+                post
             })
         } catch (err: any) {
-            return res.status(500).json({message: err.message})
-        }
-    })
-    .get("/all", async (req: Request, res: Response) => {
-        try {
-            const posts = await new PostManager().getAll()
-            return res.status(200).json({
-                success: true,
-                posts
+            return res.status(500).json({
+                success: false,
+                message: err.message
             })
-        } catch (err: any) {
-            return res.status(500).json({message: err.message})
         }
     })
-    .get("/get/:id", async (req: Request, res: Response) => {
+    .get("/get/:id", authMiddleware, async (req: Request, res: Response) => {
         const {id} = req.params
         try {
             const post = await new PostManager().getById({id})
@@ -44,10 +41,10 @@ router
             })
         }
     })
-    .delete("/delete/:id", async (req: Request, res: Response) => {
+    .delete("/delete/:id", authMiddleware, async (req: Request, res: Response) => {
         const {id} = req.params
         try {
-            const post = await new PostManager().delete({id})
+            await new PostManager().delete({id})
             return res.status(200).json({
                 success: true,
                 message: "Post deleted successfully"
@@ -59,7 +56,7 @@ router
             })
         }
     })
-    .patch("/update/:id", async (req: Request, res: Response) => {
+/*    .patch("/update/:id", async (req: Request, res: Response) => {
         const {id} = req.params
         const {content}: IPostUpdate = req.body
         try {
@@ -75,6 +72,6 @@ router
                 message: err.message
             })
         }
-    })
+    })*/
 
 export default router
