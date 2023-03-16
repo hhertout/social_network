@@ -1,5 +1,7 @@
 export interface IPost {
     content: string
+    createdAt: Date
+    updatedAt: Date
 }
 
 export interface IPostCreate {

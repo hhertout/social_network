@@ -21,14 +21,14 @@ router
             return res.status(200).json({
                 success: true,
             })
-        } catch(err: any) {
+        } catch (err: any) {
             return res.status(500).json({
                 success: false,
                 message: err.message
             })
         }
     })
-    .post("/signup", async (req, res) => {
+    .post("/signup", async (req: Request, res: Response) => {
         const {email, username, password, firstname, lastname}: IUserCreate = req.body
         const newUser = await new UserManager().signup({
             email, username, password, firstname, lastname
@@ -38,7 +38,7 @@ router
             user: newUser
         })
     })
-    .delete("/delete/:id", async (req, res) => {
+    .delete("/delete/:id", async (req: Request, res: Response) => {
         const {id}: IParams = req.params
         try {
             await new UserManager().deleteAccount({id})
@@ -52,5 +52,12 @@ router
                 message: err.message
             })
         }
+    })
+    .get("/all", async (req: Request, res: Response) => {
+        const users = await new UserManager().getAllUsers()
+        return res.status(200).json({
+            success: true,
+            users
+        })
     })
 export default router

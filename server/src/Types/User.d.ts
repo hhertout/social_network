@@ -1,3 +1,5 @@
+import {IPost} from "./Post";
+
 export interface IUser {
     _id: string
     email: string
@@ -5,6 +7,10 @@ export interface IUser {
     password: string
     firstname: string
     lastname: string
+    createdAt: Date
+    updatedAt: Date
+
+    posts: IPost[]
 }
 
 export interface IUserCreate {
