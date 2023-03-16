@@ -3,6 +3,7 @@ import {ILogin, IUserCreate} from "../Types/User";
 import UserManager from "../Manager/User.manager";
 import {IParams} from "../Types/Post";
 import JwtService from "../Services/token.service";
+import {authMiddleware} from "../Middleware/Auth.middleware";
 
 const router = express.Router()
 
@@ -38,7 +39,7 @@ router
             user: newUser
         })
     })
-    .delete("/delete/:id", async (req: Request, res: Response) => {
+    .delete("/delete/:id", authMiddleware, async (req: Request, res: Response) => {
         const {id}: IParams = req.params
         try {
             await new UserManager().deleteAccount({id})
@@ -53,7 +54,7 @@ router
             })
         }
     })
-    .get("/all", async (req: Request, res: Response) => {
+    .get("/all", authMiddleware, async (req: Request, res: Response) => {
         const users = await new UserManager().getAllUsers()
         return res.status(200).json({
             success: true,

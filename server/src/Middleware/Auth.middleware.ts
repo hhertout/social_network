@@ -1,10 +1,7 @@
 import jwt from 'jsonwebtoken';
-import {NextFunction, Request, Response} from "express";
+import {NextFunction, Response} from "express";
 
-interface AuthRequest extends Request {
-    user: any
-}
-export const authMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
     const token = req.header("Authorization")
     if (!token) {
         res.status(401).json({message: "Access denied"})
@@ -12,7 +9,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
         try {
             req.user = jwt.verify(token, process.env.TOKEN_SECRET as string)
             next()
-        }   catch(err: any) {
+        } catch (err: any) {
             res.status(401).json({message: "Access denied"})
         }
     }
