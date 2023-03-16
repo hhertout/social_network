@@ -37,4 +37,8 @@ export default class UserManager {
     async getAllUsers(): Promise<IUser[]> {
         return User.find({}, {password: 0})
     }
+
+    async getById({id}: IUserId): Promise<IUser | Error | null> {
+        return User.findOne({_id: id}, {password: 0})
+    }
 }

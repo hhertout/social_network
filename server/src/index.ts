@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import PostRouter from "./Router/Post.routes";
 import UserRouter from "./Router/User.routes";
+import AuthRouter from "./Router/Auth.routes";
 import {dbConnect} from "./Config/database.config";
 
 dotenv.config()
@@ -15,6 +16,7 @@ app.use(express.json());
 //App routes
 app.use("/post", PostRouter)
 app.use("/user", UserRouter)
+app.use("/auth", AuthRouter)
 
 // Start server
 const port = process.env.PORT || 4000
