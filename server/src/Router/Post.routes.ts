@@ -1,6 +1,5 @@
-import express, {Request, Response} from "express";
+import express, {Response} from "express";
 import {IPostCreate} from "../Types/Post";
-import PostManager from "../Manager/Post.manager";
 import {authMiddleware} from "../Middleware/Auth.middleware";
 import {AuthRequest, IToken} from "../Types/Auth";
 import UserManager from "../Manager/User.manager";
@@ -26,13 +25,14 @@ router
             })
         }
     })
-    .get("/get/:id", authMiddleware, async (req: Request, res: Response) => {
+    .delete("/delete/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
         const {id} = req.params
         try {
-            const post = await new PostManager().getById({id})
+            const user = req.user.user
+            const deletedPost = await new UserManager().deletePost({id, user})
             return res.status(200).json({
                 success: true,
-                post: post
+                posts: deletedPost
             })
         } catch (err: any) {
             return res.status(500).json({
@@ -41,37 +41,4 @@ router
             })
         }
     })
-    .delete("/delete/:id", authMiddleware, async (req: Request, res: Response) => {
-        const {id} = req.params
-        try {
-            await new PostManager().delete({id})
-            return res.status(200).json({
-                success: true,
-                message: "Post deleted successfully"
-            })
-        } catch (err: any) {
-            return res.status(500).json({
-                success: false,
-                message: err.message
-            })
-        }
-    })
-/*    .patch("/update/:id", async (req: Request, res: Response) => {
-        const {id} = req.params
-        const {content}: IPostUpdate = req.body
-        try {
-            const post = await new PostManager().update({id}, {content})
-            return res.status(200).json({
-                success: true,
-                message: "Post updated successfully",
-                post: post
-            })
-        } catch (err: any) {
-            return res.status(500).json({
-                success: false,
-                message: err.message
-            })
-        }
-    })*/
-
 export default router

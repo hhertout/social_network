@@ -3,6 +3,7 @@ import {User} from "../Schema/User.schema";
 import bcrypt from "bcrypt";
 import {ILogin} from "../Types/Auth";
 import {Post} from "../Schema/Post.schema";
+import {IPost} from "../Types/Post";
 
 export default class UserManager {
     async signup({email, username, password, firstname, lastname}: IUserCreate): Promise<IUser> {
@@ -44,18 +45,25 @@ export default class UserManager {
     }
 
     async createPost({content, user}: { content: string, user: string }) {
-        console.log(user)
         const newPost = new Post({content})
-        try {
-            await newPost.save()
-        } catch (err: any) {
-            throw new Error(err.message)
-        }
 
-        return User.findByIdAndUpdate(
+        await User.findByIdAndUpdate(
             {_id: user},
             {$push: {posts: newPost}},
             {returnDocument: "after"}
         )
+        return newPost
+    }
+
+    async deletePost({id, user}: { id: string, user: string }) {
+        const posts: any = await User.find({_id: user}).select("posts")
+        const newPosts: IPost[] = []
+        posts[0].posts.forEach((post: IPost) => {
+            if (post._id?.toString() !== id) {
+                newPosts.push(post)
+            }
+        })
+        await User.findOneAndUpdate({_id: user}, {posts: newPosts})
+        return newPosts
     }
 }
