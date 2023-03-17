@@ -17,7 +17,7 @@ export default class UserManager {
         return newUser.save()
     }
 
-    async login({email, password}: ILogin) {
+    async login({email, password}: ILogin): Promise<IUser> {
         const user: IUser | null = await User.findOne({email: email})
         if (user) {
             const validPwd = await bcrypt.compare(password, user.password)

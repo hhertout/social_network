@@ -13,11 +13,21 @@ export default class PostManager
         }
         return newPost.save()
     }
+
     async deletePost({id}: { id: string }): Promise<boolean> {
-            await Post.findByIdAndDelete({_id: id})
-            return true
+        await Post.findByIdAndDelete({_id: id})
+        return true
     }
+
     async getAllPosts(): Promise<IPost[]> {
         return Post.find({}).populate({path: "author", model: "User"})
+    }
+
+    async getPostById({id}: { id: string }): Promise<IPost | null> {
+        return Post.findOne({_id: id}).populate({path: "author", model: "User"})
+    }
+
+    async updatePost({id, content}: { id: string, content: string }): Promise<IPost | null> {
+        return Post.findOneAndUpdate({_id: id}, {content}, {returnDocument: "after"})
     }
 }

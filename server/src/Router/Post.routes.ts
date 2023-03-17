@@ -54,6 +54,37 @@ router
             })
         }
     })
+    .get("/get/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
+        const {id} = req.params
+        try {
+            const post = await new PostManager().getPostById({id})
+            return res.status(200).json({
+                success: true,
+                post
+            })
+        } catch (err: any) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+    })
+    .patch("/update/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
+        const {id} = req.params
+        const {content} = req.body
+        try {
+            const updatedPost = await new PostManager().updatePost({id, content})
+            return res.status(201).json({
+                success: true,
+                post: updatedPost
+            })
+        } catch (err: any) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+    })
 
     /*.delete("/delete/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
         const {id} = req.params
