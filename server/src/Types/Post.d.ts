@@ -1,12 +1,18 @@
+import {IUser} from "./User";
+import {IComment} from "./Comment";
+
 export interface IPost {
     _id?: string
     content: string
     createdAt: Date
     updatedAt: Date
+    author: IUser
+    comments: IComment[]
 }
 
 export interface IPostCreate {
     content: string
+    author: string
 }
 export interface IPostId {
     id: string

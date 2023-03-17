@@ -2,7 +2,7 @@ import express, {Response} from "express";
 import {IPostCreate} from "../Types/Post";
 import {authMiddleware} from "../Middleware/Auth.middleware";
 import {AuthRequest, IToken} from "../Types/Auth";
-import UserManager from "../Manager/User.manager";
+import PostManager from "../Manager/Post.manager";
 
 const router = express.Router()
 
@@ -12,8 +12,8 @@ router
         const {content}: IPostCreate = req.body
 
         try {
-            const user = token.user
-            const post = await new UserManager().createPost({content, user})
+            const author = token.user
+            const post = await new PostManager().createPost({content, author})
             return res.status(200).json({
                 success: true,
                 post
@@ -28,9 +28,39 @@ router
     .delete("/delete/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
         const {id} = req.params
         try {
-            const user = req.user.user
-            const deletedPost = await new UserManager().deletePost({id, user})
+            await new PostManager().deletePost({id})
+            res.status(201).json({
+                success: true,
+                message: "Post deleted"
+            })
+        } catch(err: any) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+    })
+    .get("/all", authMiddleware, async (req: AuthRequest, res: Response) => {
+        try {
+            const posts = await new PostManager().getAllPosts()
             return res.status(200).json({
+                success: true,
+                posts
+            })
+        } catch (err: any) {
+            return res.status(500).json({
+                success: false,
+                message: err.message
+            })
+        }
+    })
+
+    /*.delete("/delete/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
+        const {id} = req.params
+        try {
+            const author = req.user.user
+            const deletedPost = await new PostManager().deletePost({id})
+            return res.status(201).json({
                 success: true,
                 posts: deletedPost
             })
@@ -40,5 +70,5 @@ router
                 message: err.message
             })
         }
-    })
+    })*/
 export default router
