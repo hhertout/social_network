@@ -1,13 +1,12 @@
 import {Post} from "../Schema/Post.schema";
 import {IPost, IPostCreate} from "../Types/Post";
-import UserManager from "./User.manager";
+import UserEntity from "./User.entity";
 
-export default class PostManager
-{
+export default class PostEntity {
     async createPost({content, author}: IPostCreate): Promise<IPost> {
         const newPost = new Post({content, author})
         try {
-            await new UserManager().assignPostToUser({id: newPost._id, user: author})
+            await new UserEntity().assignPostToUser({id: newPost._id, user: author})
         } catch (err: any) {
             throw new Error(err.message)
         }

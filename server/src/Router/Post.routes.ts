@@ -2,7 +2,7 @@ import express, {Response} from "express";
 import {IPostCreate} from "../Types/Post";
 import {authMiddleware} from "../Middleware/Auth.middleware";
 import {AuthRequest, IToken} from "../Types/Auth";
-import PostManager from "../Manager/Post.manager";
+import PostManager from "../Entity/Post.entity";
 
 const router = express.Router()
 

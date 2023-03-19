@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import {ILogin} from "../Types/Auth";
 import {Post} from "../Schema/Post.schema";
 
-export default class UserManager {
+export default class UserEntity {
     async signup({email, username, password, firstname, lastname}: IUserCreate): Promise<IUser> {
         const hash = await bcrypt.hash(password, 10)
         const newUser = new User({

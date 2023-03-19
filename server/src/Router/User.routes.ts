@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import UserManager from "../Manager/User.manager";
+import UserEntity from "../Entity/User.entity";
 import {IParams} from "../Types/Post";
 import {authMiddleware} from "../Middleware/Auth.middleware";
 import {AuthRequest} from "../Types/Auth";
@@ -10,7 +10,7 @@ router
     .delete("/delete/:id", authMiddleware, async (req: Request, res: Response) => {
         const {id}: IParams = req.params
         try {
-            await new UserManager().deleteAccount({id})
+            await new UserEntity().deleteAccount({id})
             return res.status(200).json({
                 success: true,
                 message: "User deleted successfully"
@@ -23,7 +23,7 @@ router
         }
     })
     .get("/all", authMiddleware, async (req: AuthRequest, res: Response) => {
-        const users = await new UserManager().getAllUsers()
+        const users = await new UserEntity().getAllUsers()
         return res.status(200).json({
             success: true,
             users
@@ -32,7 +32,7 @@ router
     .get("/get/:id", authMiddleware, async (req: AuthRequest, res: Response) => {
         const {id}: IParams = req.params
         try {
-            const user = await new UserManager().getById({id})
+            const user = await new UserEntity().getById({id})
             return res.status(200).json({
                 success: true,
                 user
