@@ -10,8 +10,7 @@ export default function LoginForm() {
     const email = emailRef.current!.value
     const password = passwordRef.current!.value
 
-    const res = await login({ email, password })
-    const data = await res.json()
+    await login({ email, password })
   }
   return (
     <form onSubmit={handleSubmit}>

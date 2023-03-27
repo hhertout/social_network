@@ -20,8 +20,7 @@ export default function SignupForm() {
     const lastname = lastnameRef.current!.value
 
     if(signUpPassword.password === signUpPassword.confirmPassword) {
-        const res = await signup({ email, username, firstname, lastname, password: signUpPassword.password})
-        const data = await res.json()
+        await signup({ email, username, firstname, lastname, password: signUpPassword.password})
     }
   }
 
