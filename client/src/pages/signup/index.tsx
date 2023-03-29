@@ -5,7 +5,6 @@ export default function index() {
   return (
     <div>
       Here's your signup page
-
       <SignupForm />
     </div>
   )
