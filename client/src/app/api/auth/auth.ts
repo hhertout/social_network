@@ -19,7 +19,7 @@ export const login = async ({ email, password }: ILogin) => {
     const data = await res.json()
     return data
   } catch (err: any) {
-    console.error(err)
+        throw new Error(err)
   }
 }
 
@@ -45,6 +45,6 @@ export const signup = async ({ email, password, username, firstname, lastname }:
     const data = await res.json()
     return data
   } catch (err: any) {
-    console.error(err)
+        throw new Error(err)
   }
 }
