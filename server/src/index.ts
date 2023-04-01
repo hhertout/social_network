@@ -7,7 +7,7 @@ import AuthRouter from "./Router/Auth.routes";
 import {dbConnect} from "./Config/database.config";
 
 dotenv.config()
-const app: Express = express()
+export const app: Express = express()
 
 //App config
 app.use(cors())
