@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import JwtService from "../../src/Services/token.service";
-import { IUserId } from "../../src/Types/User";
 
 describe('JwtService', () => {
   describe('generateToken', () => {
