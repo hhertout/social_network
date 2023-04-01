@@ -1,0 +1,23 @@
+name: "app_node"
+services:
+    server:
+        build: ./server
+        ports: 
+            - "4000:4000"
+        volumes:
+            - ./server/src/:/app/server
+        environment:
+            - MONGO_URI=mongodb://mongo:27017/{your_db_name}
+    mongo:
+        image: mongo
+        volumes:
+            - ./data:/data/db
+    client:
+        build: ./client
+        ports:
+            - "3000:3000"
+        command: npm run dev
+        volumes:
+            - ./client/src/:/app/client
+        depends_on:
+            - server

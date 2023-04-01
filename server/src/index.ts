@@ -23,9 +23,9 @@ const port = process.env.PORT || 4000
 const start = async () => {
     try {
         await dbConnect()
+        app.listen(port, () => console.log(`✨ Server is running on port: ${port}`))
     } catch (err: any) {
         console.log(`unable to connect to database: ${err.message}`)
     }
-    app.listen(port, () => console.log(`✨ Server is running on port: ${port}`))
 }
 start()

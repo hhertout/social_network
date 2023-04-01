@@ -1,7 +1,9 @@
 import { signup } from "@/app/api/auth/auth"
+import { useRouter } from "next/router"
 import React, { ChangeEvent } from "react"
 
 export default function SignupForm() {
+    const {push} = useRouter()
   const [signUpPassword, setSignUpPassword] = React.useState({
     password: "",
     confirmPassword: "",
@@ -20,7 +22,13 @@ export default function SignupForm() {
     const lastname = lastnameRef.current!.value
 
     if(signUpPassword.password === signUpPassword.confirmPassword) {
-        await signup({ email, username, firstname, lastname, password: signUpPassword.password})
+        try {
+            await signup({ email, username, firstname, lastname, password: signUpPassword.password})
+            
+            push('/login')
+        } catch (err: any) {
+            console.log(err)
+        }
     }
   }
 
