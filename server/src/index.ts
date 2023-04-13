@@ -22,4 +22,4 @@ const start = async (): Promise<void> => {
         console.log(`unable to connect to database: ${err.message}`)
     }
 }
-start().then(() => console.log("server is correctly setup"))
+start().then(() => console.log("✨ Server is correctly setup"))
