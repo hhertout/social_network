@@ -6,18 +6,21 @@ export default {
         posts: async(): Promise<IPost[]> => {
             return await new PostEntity().getAllPosts()
         },
-        post: async({id}: IPostId): Promise<IPost | null> => {
+        post: async(_: any, {id}: IPostId): Promise<IPost | null> => {
+            if (!id) {
+                throw new Error("id is undefined");
+            }
             return await new PostEntity().getPostById({id})
         }
     },
     Mutation :{
-        create: async({content, author}: IPostCreate): Promise<IPost> => {
+        createPost: async(_: any,{content, author}: IPostCreate): Promise<IPost> => {
             return await new PostEntity().createPost({content, author})
         },
-        delete: async({id}: IPostId): Promise<boolean> => {
+        deletePost: async(_: any,{id}: IPostId): Promise<boolean> => {
             return await new PostEntity().deletePost({id})
         },
-        update: async({id, content}: IPostUpdate): Promise<IPost | null | undefined> => {
+        updatePost: async(_: any, {id, content}: IPostUpdate): Promise<IPost | null | undefined> => {
             return await new PostEntity().updatePost({id, content})
         }
     }

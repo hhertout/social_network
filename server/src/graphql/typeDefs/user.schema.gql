@@ -5,15 +5,14 @@ type User {
 
     email: String!
     username: String!
-    password: String!
     firstname: String!
     lastname: String!
     posts: [Post!]!
 }
 
 type Query {
-    users: [User!]!
-    user: User
+    users: [User]
+    user(id: String): User
 }
 
 type Mutation {
