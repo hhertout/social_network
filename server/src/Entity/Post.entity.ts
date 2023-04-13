@@ -26,7 +26,8 @@ export default class PostEntity {
         return Post.findOne({_id: id}).populate({path: "author", model: "User"})
     }
 
-    async updatePost({id, content}: { id: string, content: string }): Promise<IPost | null> {
-        return Post.findOneAndUpdate({_id: id}, {content}, {returnDocument: "after"})
+    async updatePost({id, content}: { id: string, content: string | undefined }): Promise<IPost | null | undefined> {
+        if(content)
+            return Post.findOneAndUpdate({_id: id}, {content}, {returnDocument: "after"})
     }
 }

@@ -1,6 +1,5 @@
 import mongoose, {Schema, model} from "mongoose";
 import {IUser} from "../Types/User";
-import {PostSchema} from "./Post.schema";
 
 export const UserSchema = new Schema<IUser>({
     //Default

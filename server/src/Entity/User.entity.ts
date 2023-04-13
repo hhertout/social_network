@@ -31,11 +31,12 @@ export default class UserEntity {
         }
     }
 
-    async deleteAccount({id}: IUserId): Promise<IUser | Error | null> {
-        return User.findByIdAndDelete({_id: id})
+    async deleteAccount({id}: IUserId): Promise<boolean> {
+        await User.findByIdAndDelete({_id: id})
+        return true
     }
 
-    async getAllUsers(): Promise<IUser[]> {
+    async getAllUsers(): Promise<IUser[] | Error | null> {
         return User.find({}, {password: 0}).populate({path: "posts", model: "Post"})
     }
 

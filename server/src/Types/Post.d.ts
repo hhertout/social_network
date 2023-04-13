@@ -22,6 +22,7 @@ export interface IPostDelete {
     message: string
 }
 export interface IPostUpdate {
+    id: string
     content?: string
 }
 
