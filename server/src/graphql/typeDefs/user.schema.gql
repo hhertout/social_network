@@ -13,4 +13,11 @@ type User {
 
 type Query {
     users: [User!]!
+    user: User
+}
+
+type Mutation {
+    login(email: String!, password: String!): User
+    signup(email: String!, username: String!, password: String!, firstname: String!, lastname: String!): User
+    unsubscribe(id: String!): Boolean
 }

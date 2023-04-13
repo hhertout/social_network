@@ -16,4 +16,11 @@ type Comment {
 
 type Query {
     posts: [Post]
+    post: Post
+}
+
+type Mutation {
+    createPost(content: String!): Post
+    updatePost(id: ID!, content: String!): Post
+    deletePost(id: ID!): Boolean!
 }
