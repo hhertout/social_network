@@ -2,8 +2,8 @@ import dotenv from "dotenv"
 import {dbConnect} from "./Config/database.config";
 import {ApolloServer, BaseContext} from "@apollo/server";
 import {startStandaloneServer} from "@apollo/server/standalone";
-import resolver from "./graphql/resolver";
-import typeDefs from "./graphql/typeDefs";
+import resolver from "./Graphql/Resolver";
+import typeDefs from "./Graphql/TypeDefs";
 
 dotenv.config()
 // Start server
