@@ -1,0 +1,19 @@
+type Post {
+    _id: ID!
+    createdAt: String!
+    updatedAt: String!
+
+    content: String!
+
+    author: User!
+    comments: [Comment]
+}
+
+type Comment {
+    createdAt: String!
+    comment: String!
+}
+
+type Query {
+    posts: [Post]
+}
