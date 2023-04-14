@@ -4,7 +4,7 @@ import React from 'react'
 export default function index() {
   return (
     <div>
-      Here's your signup page
+      <p>Here&apos;s your signup page</p>
       <SignupForm />
     </div>
   )
