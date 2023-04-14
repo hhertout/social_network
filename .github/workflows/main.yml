@@ -10,19 +10,22 @@ on:
     branches: [ "main" ]
 
 jobs:
+    test:
+        - run: cd backend && npm run test
+        - run: cd frontend && npm run test
+    format: 
+        - run: cd backend && npm run format
+        - run: cd frontend && npm run format 
 
-  build:
+  #build:
 
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
+    #strategy:
+     # matrix:
+        #node-version: [14.x, 16.x, 18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-    - uses: actions/checkout@v3
-    - run: cd backend && npm run format
-    - run: cd frontend && npm run format 
-    - run: cd backend && npm run test
-    - run: cd frontend && npm run test
+    #steps:
+    #- uses: actions/checkout@v3
+    #
