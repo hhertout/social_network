@@ -1,12 +1,19 @@
-import Navbar from '@/components/ui/Navbar'
-import Link from 'next/link'
-import React from 'react'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import App from './App'
+import { Provider } from 'react-redux'
+import store from '@/store/store'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000',
+  cache: new InMemoryCache(),
+})
 
 export default function index() {
   return (
-    <div>
-      <Navbar />
-      Welcome on Gwitt !<Link href={'/login'}>Login</Link>
-    </div>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ApolloProvider>
   )
 }
