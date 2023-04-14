@@ -2,7 +2,6 @@ import {IUser, IUserCreate, IUserId} from "../Types/User";
 import {User} from "../Schema/User.schema";
 import bcrypt from "bcrypt";
 import {ILogin} from "../Types/Auth";
-import {Post} from "../Schema/Post.schema";
 
 export default class UserEntity {
     async signup({email, username, password, firstname, lastname}: IUserCreate): Promise<IUser> {
