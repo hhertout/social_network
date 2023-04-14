@@ -1,26 +1,26 @@
 type Post {
-    _id: ID!
-    createdAt: String!
-    updatedAt: String!
+  _id: ID!
+  createdAt: String!
+  updatedAt: String!
 
-    content: String!
+  content: String!
 
-    author: User!
-    comments: [Comment]
+  author: User!
+  comments: [Comment]
 }
 
 type Comment {
-    createdAt: String!
-    comment: String!
+  createdAt: String!
+  comment: String!
 }
 
 type Query {
-    posts: [Post]
-    post(id: String): Post
+  posts: [Post]
+  post(id: String): Post
 }
 
 type Mutation {
-    createPost(content: String!): Post
-    updatePost(id: ID!, content: String!): Post
-    deletePost(id: ID!): Boolean!
+  createPost(content: String!): Post
+  updatePost(id: ID!, content: String!): Post
+  deletePost(id: ID!): Boolean!
 }

@@ -1,14 +1,14 @@
 export interface ILogin {
-    email: string
-    password: string
+  email: string
+  password: string
 }
 
 export interface AuthRequest extends e.Request {
-    [key: string]: any
+  [key: string]: any
 }
 
 export interface IToken {
-    user: string
-    iat: number
-    exp: number
+  user: string
+  iat: number
+  exp: number
 }
