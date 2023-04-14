@@ -1,26 +1,26 @@
-import {IPost} from "./Post";
+import { IPost } from './Post'
 
 export interface IUser {
-    _id: string
-    email: string
-    username: string
-    password: string
-    firstname: string
-    lastname: string
-    createdAt: Date
-    updatedAt: Date
+  _id: string
+  email: string
+  username: string
+  password: string
+  firstname: string
+  lastname: string
+  createdAt: Date
+  updatedAt: Date
 
-    posts: IPost[]
+  posts: IPost[]
 }
 
 export interface IUserCreate {
-    email: string
-    username: string
-    password: string
-    firstname: string
-    lastname: string
+  email: string
+  username: string
+  password: string
+  firstname: string
+  lastname: string
 }
 
 export interface IUserId {
-    id: string
+  id: string
 }

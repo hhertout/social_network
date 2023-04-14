@@ -1,7 +1,7 @@
-import {IUser} from "./User";
+import { IUser } from './User'
 
 export interface IComment {
-    author: IUser
-    comment: string
-    createdAt: Date
+  author: IUser
+  comment: string
+  createdAt: Date
 }
