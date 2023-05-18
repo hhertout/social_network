@@ -1,7 +1,7 @@
 {
   "scripts": {
     "setup": "cd client && npm i && cd ../server && npm i",
-    "dev-front": "cd client",
+    "dev-front": "cd client next dev",
     "dev-back": "cd server && npm start"
   }
 }
